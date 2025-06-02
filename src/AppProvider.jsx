@@ -5,6 +5,7 @@ const AppContext = createContext();
 const defaultSettings = {
   notifications: false,
   music: false,
+  musicVol: 0.5,
   studyMusic: true,
   restMusic: false,
   maxStudyTime: 30,

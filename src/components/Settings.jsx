@@ -59,17 +59,37 @@ const Settings = forwardRef((props, ref) => {
             />
           </label>
 
-          {/* <label className="label flex justify-between items-center">
-            <span className="text-gray-300">Music</span>
+          <label className="label flex justify-between items-center">
+            <span className="text-gray-800">Music</span>
             <input
               type="checkbox"
               checked={settings.music}
               onChange={handleToggle("music")}
-              className="toggle toggle-error"
+              className="toggle"
             />
           </label>
+          {settings.music && (
+            <label className="label flex flex-col items-start space-y-1">
+              <span className="text-gray-800">Music Volume</span>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value={Math.round(settings.musicVol * 100)}
+                onChange={(e) =>
+                  setSettings({ ...settings, musicVol: Number(e.target.value) / 100 })
+                }
+                className="range range-primary"
+              />
+              <div className="text-sm text-gray-600">
+                Volume: {Math.round(settings.musicVol * 100)}%
+              </div>
+            </label>
+          )}
 
-          <label className="label flex justify-between items-center">
+
+          {/* <label className="label flex justify-between items-center">
             <span className="text-gray-300">Study Music</span>
             <input
               type="checkbox"

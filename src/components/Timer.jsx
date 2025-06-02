@@ -1,7 +1,7 @@
 import { useAppContext } from "../AppProvider";
 import { useRef, useState, useEffect } from "react";
 
-const Timer = () => {
+const Timer = ({audioRef }) => {
     const { settings } = useAppContext();
     const [timeLeft, setTimeLeft] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
@@ -19,31 +19,57 @@ const Timer = () => {
     };
 
     const startTimer = () => {
-        if (!isRunning) {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+    
+      if (!isRunning) {
         setIsRunning(true);
+        
         if (timeLeft === 0) {
-            setCurrentPhase('study');
-            setTimeLeft(settings.maxStudyTime * 60);
-            setCurrentEvent('Focus Time');
-            setCycleCount(0);
+          setCurrentPhase('study');
+          setTimeLeft(settings.maxStudyTime * 60);
+          setCurrentEvent('Focus Time');
+          setCycleCount(0);
         }
+        
+        if (settings.music && audioRef?.current) {
+          audioRef.current.volume = settings.musicVol;
+          audioRef.current.play().catch((e) => {
+            console.warn("Audio playback failed:", e);
+          });
         }
+      }
     };
+
 
     const stopTimer = () => {
-        setIsRunning(false);
-        if (intervalRef.current) {
+      setIsRunning(false);
+      if (intervalRef.current) {
         clearInterval(intervalRef.current);
-        }
+      }
+    
+      if (settings.music && audioRef?.current) {
+        audioRef.current.pause();
+      }
     };
 
+
     const restartTimer = () => {
-        stopTimer();
-        setTimeLeft(0);
-        setCurrentPhase('study');
-        setCurrentEvent('Ready to Study');
-        setCycleCount(0);
+      stopTimer();
+      setTimeLeft(0);
+      setCurrentPhase('study');
+      setCurrentEvent('Ready to Study');
+      setCycleCount(0);
+    
+      if (settings.music && audioRef?.current) {
+        audioRef.current.volume = settings.musicVol;
+        audioRef.current.play().catch((e) =>
+          console.warn("Audio playback failed:", e)
+        );
+      }
     };
+
 
     useEffect(() => {
         if (isRunning && timeLeft > 0) {
