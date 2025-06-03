@@ -2,3 +2,24 @@
 @plugin "daisyui";
 
 
+root {
+  color-scheme: light only;
+}
+
+html {
+  color-scheme: light;
+}
+
+/* light only */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light only;
+  }
+  html {
+    color-scheme: light;
+  }
+  body {
+    background-color: white;
+    color: black;
+  }
+}
