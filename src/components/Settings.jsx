@@ -55,7 +55,7 @@ const Settings = forwardRef((props, ref) => {
               type="checkbox"
               checked={allowNotif}
               onChange={handleAllowNotification}
-              className="toggle"
+              className="toggle bg-gray-800"
             />
           </label>
 
@@ -65,7 +65,7 @@ const Settings = forwardRef((props, ref) => {
               type="checkbox"
               checked={settings.music}
               onChange={handleToggle("music")}
-              className="toggle"
+              className="toggle bg-gray-800"
             />
           </label>
           {settings.music && (
@@ -116,7 +116,7 @@ const Settings = forwardRef((props, ref) => {
               value={settings.maxStudyTime}
               onChange={handleNumberChange("maxStudyTime")}
               min={1}
-              className="input input-bordered w-20 text-black"
+              className="input input-bordered w-20 text-white"
             />
           </label>
 
@@ -127,7 +127,7 @@ const Settings = forwardRef((props, ref) => {
               value={settings.maxRestTime}
               onChange={handleNumberChange("maxRestTime")}
               min={1}
-              className="input input-bordered w-20 text-black"
+              className="input input-bordered w-20 text-white"
             />
           </label>
 
